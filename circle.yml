@@ -1,7 +1,9 @@
 test:
   override:
     - sleep 2
+    - echo "foo bar baz"
+    - exit 1
 
 notify:
   webhooks:
-    - url: http://requestb.in/178xsvo1
+    - url: https://27a85088.ngrok.io
