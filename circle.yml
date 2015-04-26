@@ -6,4 +6,4 @@ test:
 
 notify:
   webhooks:
-    - url: https://27a85088.ngrok.io
+    - url: https://27a85088.ngrok.io/v1/builds
