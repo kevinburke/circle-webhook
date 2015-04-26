@@ -8,11 +8,14 @@ import (
 
 const VERSION = 1
 
+// Create a HTTP handler that parses incoming build hooks from CircleCI and
+// emits the parsed Response structs to the given channel.
 func NewHandler(rc chan *Response) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		//tee := io.TeeReader(r.Body, os.Stdout)
 		nd := json.NewDecoder(r.Body)
 		defer r.Body.Close()
-		var resp *Response
+		resp := new(Response)
 		err := nd.Decode(resp)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
@@ -24,8 +27,4 @@ func NewHandler(rc chan *Response) http.HandlerFunc {
 		w.Header().Set("Server", fmt.Sprintf("circle-webhooks/v%d", VERSION))
 		w.Write([]byte("thanks"))
 	}
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
 }
