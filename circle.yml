@@ -1,0 +1,7 @@
+test:
+  override:
+    - sleep 2
+
+notify:
+  webhooks:
+    - url: http://requestb.in/178xsvo1
