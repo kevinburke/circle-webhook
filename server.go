@@ -17,14 +17,14 @@ func NewHandler(rc chan *Response) http.HandlerFunc {
 		defer r.Body.Close()
 		resp := new(Response)
 		err := nd.Decode(resp)
+		w.Header().Set("Content-Type", "text/plain")
+		w.Header().Set("Server", fmt.Sprintf("circle-webhooks/v%d", VERSION))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 		rc <- resp
 		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "text/plain")
-		w.Header().Set("Server", fmt.Sprintf("circle-webhooks/v%d", VERSION))
 		w.Write([]byte("thanks"))
 	}
 }
