@@ -9,7 +9,7 @@ import (
 	"github.com/kevinburke/circle-webhook"
 )
 
-func handleCircleData(cs chan *circle.Response) {
+func handleCircleData(cs <-chan *circle.Response) {
 	resp := <-cs
 	fmt.Println(resp.Payload.AuthorEmail)
 }

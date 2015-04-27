@@ -10,7 +10,7 @@ const VERSION = 1
 
 // Create a HTTP handler that parses incoming build hooks from CircleCI and
 // emits the parsed Response structs to the given channel.
-func NewHandler(rc chan *Response) http.HandlerFunc {
+func NewHandler(rc chan<- *Response) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		//tee := io.TeeReader(r.Body, os.Stdout)
 		nd := json.NewDecoder(r.Body)
